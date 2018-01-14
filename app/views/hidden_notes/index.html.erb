@@ -1,0 +1,26 @@
+<h2>Hidden Notes</h2>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Your note</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hidden_notes.each do |hidden_note| %>
+      <tr>
+        <td><%= hidden_note.your_note %></td>
+        <td><%= link_to 'Show', hidden_note %></td>
+        <td><%= link_to 'Destroy', hidden_note, method: :delete %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Hidden Note', new_hidden_note_path %>

@@ -1,0 +1,2 @@
+class HiddenNote < ApplicationRecord
+end

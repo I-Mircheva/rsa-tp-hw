@@ -1,16 +1,12 @@
-# rsa-tp-hw
 
-* POST /rsas - създава нов ключ и връща id на този ключ
 
-* POST /rsas - създава нов ключ с конкретните стойности за n, e, d. Връзка id-то
-    params: n, e, d
+DoNotKeepThat ;)
+================
 
-* GET /rsas/:id - връща json представяне на ключа с идентификатор id. JSON-а съдържа три ключа n, e, d със стойности на съответните параметри
+Simple App For Sending Notes
+----------------------------
 
-* POST /rsas/:id/encrypt_messages/ - криптира съобщението подадено с параметъра и създава ново криптирано съобщение. Връща идентификатор
-    params: message
+### Welcome to the repository
 
-* GET /rsas/:id/encrypt_messages/:id - връща криптирано съобщение с дадения идентификатор. JSON съдържа един ключ message със стойност съобщението
-
-* POST /rsas/:id/decrypt_messages/ - декриптира съобщението подадено с параметър и създава ново дикриптирано съобщение на база параметъра.
-    params: message
+#### Also fell free to access the [Heroku app](https://do-not-keep-that.herokuapp.com).
+* 6/7 Suppport!
