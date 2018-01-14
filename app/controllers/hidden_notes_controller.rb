@@ -28,64 +28,46 @@ end
 
   # POST /hidden_notes
   # POST /hidden_notes.json
-  def create
-    messages_url = "https://do-not-keep-that.herokuapp.com/hidden_notes"
-    if request.content_type =~ /xml/
-    message_hash = Hash.from_xml(request.body.read)
 
-         params[:hidden_note] = {"your_note" => message_hash["message"]}
+# POST /hidden_notes
+# POST /hidden_notes.json
+def create
+  messages_url = "https://do-not-keep-that.herokuapp.com/hidden_notes"
 
-         @hidden_note = HiddenNote.create(hidden_note_params)
+  respond_to do |format|
+    format.xml {
+      message_hash = Hash.from_xml(request.body.read)
 
-         url = '<?xml version = "1.0" encoding = "UTF-8" standalone ="yes"?>' +
-               "<url>" +
-                 messages_url + '/' + @hidden_note.id.to_s +
-               "</url>"
+      params[:hidden_note] = {"your_note" => message_hash["message"]}
 
-         render :xml => url
-       else
-         respond_to do |format|
-             format.json {
-               params[:hidden_note] = {"your_note" => params[:message]}
+      @hidden_note = HiddenNote.create(hidden_note_params)
 
-               @hidden_note = HiddenNote.create(hidden_note_params)
+      url = '<?xml version = "1.0" encoding = "UTF-8" standalone ="yes"?>' +
+           "<url>" +
+             "#{messages_url}/#{@hidden_note.id.to_s}" +
+           "</url>"
+           "<encrypted_message>" +
+             "#{@hidden_note.encrypted_message(params[:key], params[:value])}" +
+           "</encrypted_message>"
 
-               url = {"url" => messages_url + "/" + @hidden_note.id.to_s}
+      render :xml => url
+     }
 
-               render :json => url.to_json
-             }
+    format.json {
+      @hidden_note = HiddenNote.create(your_note: params[:message])
 
-             format.html {
-               @hidden_note = HiddenNote.create(hidden_note_params)
+      # url = {"url" => messages_url + "/" + @hidden_note.id.to_s}
 
-               render :get
-             }
-         end
+      url = hidden_note_path(@hidden_note.id, host_name: messages_url)
 
-    end
+      render :json => url.to_json
+    }
 
-  # if request.content_type =~ /xml/
-  #   params[:your_note] = Hash.from_xml(request.body.read)["message"]
-  #   notes_url = "https://do-not-keep-that.herokuapp.com/hidden_notes/#{hidden_note.id}"
-  #   hidden_note = HiddenNote.new(your_note: params[:your_note])
-  #   render xml:
-  #   '<?xml version = "1.0" encoding = "UTF-8" standalone = "yes"?>' + '<url>' +  notes_url + hidden_note.id + "/info" + '</url>'
-  # elsif request.content_type =~ /json/
-  #  hidden_note = HiddenNote.new(your_note: params[:your_note])
-  #   notes_url = "https://do-not-keep-that.herokuapp.com/hidden_notes/#{hidden_note.id}"
-  #  render json: {url: notes_url + hidden_note.id + '/info'}
-  # elsif request.content_type =~ /form/
-  #   @hidden_note = HiddenNote.new(hidden_note_params)
-  #   respond_to do |format|
-  #    if @hidden_note.save
-  #       format.html { render :show_url, notice: 'Hidden note was successfully created.'}
-  #       format.json { render :show_url, status: :created, location: @hidden_note }
-  #    else
-  #       format.html { render :new }
-  #       format.json { render json: @hidden_note.errors, status: :unprocessable_entity }
-  #    end
-  #   end
-  # end
+    format.html {
+      @hidden_note = HiddenNote.create(hidden_note_params)
+
+      render :show
+    }
 end
 
   # DELETE /hidden_notes/1
