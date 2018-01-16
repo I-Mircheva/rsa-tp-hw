@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>N:</strong>
+  <%= @rsa_full.n %>
+</p>
+
+<p>
+  <strong>E:</strong>
+  <%= @rsa_full.e %>
+</p>
+
+<p>
+  <strong>D:</strong>
+  <%= @rsa_full.d %>
+</p>
+
+<%= link_to 'Edit', edit_rsa_full_path(@rsa_full) %> |
+<%= link_to 'Back', rsa_fulls_path %>

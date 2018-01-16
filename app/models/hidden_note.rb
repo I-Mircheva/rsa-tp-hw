@@ -1,2 +1,0 @@
-class HiddenNote < ApplicationRecord
-end

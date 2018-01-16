@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Rsa Works</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @rsa_works.each do |rsa_work| %>
+      <tr>
+        <td><%= link_to 'Show', rsa_work %></td>
+        <td><%= link_to 'Edit', edit_rsa_work_path(rsa_work) %></td>
+        <td><%= link_to 'Destroy', rsa_work, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Rsa Work', new_rsa_work_path %>

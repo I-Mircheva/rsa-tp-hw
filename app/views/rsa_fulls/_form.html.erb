@@ -1,0 +1,32 @@
+<%= form_with(model: rsa_full, local: true) do |form| %>
+  <% if rsa_full.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(rsa_full.errors.count, "error") %> prohibited this rsa_full from being saved:</h2>
+
+      <ul>
+      <% rsa_full.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :n %>
+    <%= form.number_field :n, id: :rsa_full_n %>
+  </div>
+
+  <div class="field">
+    <%= form.label :e %>
+    <%= form.number_field :e, id: :rsa_full_e %>
+  </div>
+
+  <div class="field">
+    <%= form.label :d %>
+    <%= form.number_field :d, id: :rsa_full_d %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

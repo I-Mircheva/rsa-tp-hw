@@ -1,12 +1,24 @@
+# README
 
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-DoNotKeepThat ;)
-================
+Things you may want to cover:
 
-Simple App For Sending Notes
-----------------------------
+* Ruby version
 
-### Welcome to the repository
+* System dependencies
 
-#### Also fell free to access the [Heroku app](https://do-not-keep-that.herokuapp.com).
-* 6/7 Suppport!
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...

@@ -6,33 +6,40 @@ class MessagesController < ApplicationController
   def index
     @messages = Message.all
   end
-
   # GET /messages/1
   # GET /messages/1.json
   def show
+    p params[:message_id]
+    my_message = Message.find_by id: params[:message_id]
+    respond_to do |format|
+         format.json {render json: {'message' => my_message.content}}
+     end
   end
-
   # GET /messages/new
   def new
     @message = Message.new
   end
-
   # GET /messages/1/edit
   def edit
   end
-
   # POST /messages
   # POST /messages.json
   def create
-    @message = Message.new(message_params)
+   my_rsa = RsaFull.find_by id: params[:id]
+   my_message = Message.new(content: my_rsa.encrypt(params[:message]))
+   respond_to do |format|
+      if my_message.save
+        format.json {render json: {'id' => my_message.id}}
+      end
+    end
+  end
 
-    respond_to do |format|
-      if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
-        format.json { render :show, status: :created, location: @message }
-      else
-        format.html { render :new }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
+  def decrypt_messages
+   my_rsa = RsaFull.find_by id: params[:id]
+   my_message = Message.new(content: my_rsa.decrypt(params[:message]))
+   respond_to do |format|
+      if my_message.save
+        format.json {render json: {'id' => my_message.id, 'content' => my_message.content}}
       end
     end
   end
@@ -64,11 +71,11 @@ class MessagesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_message
-      @message = Message.find(params[:id])
+      #@message = Message.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
-      params.require(:message).permit(:message)
+      params.require(:message).permit(:content)
     end
 end

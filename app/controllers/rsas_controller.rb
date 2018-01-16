@@ -24,15 +24,17 @@ class RsasController < ApplicationController
   # POST /rsas
   # POST /rsas.json
   def create
-    @rsa = Rsa.new(rsa_params)
 
-    respond_to do |format|
-      if @rsa.save
-        format.html { redirect_to @rsa, notice: 'Rsa was successfully created.' }
-        format.json { render :show, status: :created, location: @rsa }
-      else
-        format.html { render :new }
-        format.json { render json: @rsa.errors, status: :unprocessable_entity }
+   keys = [:n, :e, :d]
+   if (params.keys & keys).any?
+     my_rsa = Rsa.new(params[:n], params[:e], params[:d])
+   else
+     keys = Rsa.new_key
+     my_rsa = Rsa.new(keys[0], keys[1], keys[2])
+   end
+   respond_to do |format|
+      if my_rsa.save
+        format.json {render json: {'id' => my_rsa.id}}
       end
     end
   end
@@ -69,6 +71,6 @@ class RsasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def rsa_params
-      params.require(:rsa).permit(:message)
+      params.fetch(:rsa, {})
     end
 end
