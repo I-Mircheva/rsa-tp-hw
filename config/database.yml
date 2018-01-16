@@ -1,23 +1,26 @@
-development:
-  adapter: postgresql
-  encoding: utf8
-  database: ivona_development
-  pool: 5
-  username:
-  password:
 
-test: &TEST
+# Configure Using Gemfile
+# gem 'pg'
+#
+default: &default
   adapter: postgresql
-  encoding: utf8
-  database: ivona_test
-  pool: 5
-  username:
-  password:
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: fine
+  password: password
+  host: localhost
+
+development:
+  <<: *default
+  database: IVONA_development
+test:
+  <<: *default
+  database: IVONA_development
 
 production:
-  adapter: postgresql
-  encoding: utf8
-  database: ivona_production
-  pool: 5
-  username:
-  password:
+  <<: *default
+  database: IVONA_production
+  username: IVONA
+password: <%= ENV['RSAREST_DATABASE_PASSWORD'] %>
