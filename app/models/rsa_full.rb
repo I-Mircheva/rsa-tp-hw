@@ -2,11 +2,6 @@
 require 'prime'
 
 class RsaFull < ApplicationRecord
-  # def initialize n, e, d
-  #  @n = n.to_i
-  #  @e = e.to_i
-  #  @d = d.to_i
-  # end
 
   after_initialize do |rsafull|
    @n = self[:n]

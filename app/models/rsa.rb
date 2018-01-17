@@ -1,3 +1,0 @@
-class Rsa < ApplicationRecord
-
-end

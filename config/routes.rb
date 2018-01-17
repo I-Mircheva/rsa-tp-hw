@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   resources :messages
   root to: "rsas#new"
 
-  match '/rsas' => 'rsa_fulls#create', via: :post ###
-  match '/rsas/:id' => 'rsa_fulls#show', via: :get ###
-  match '/rsas/:id/encrypt_messages/' => 'messages#create', via: :post ###
+  match '/rsas' => 'rsa_fulls#create', via: :post
+  match '/rsas/:id' => 'rsa_fulls#show', via: :get
+  match '/rsas/:id/encrypt_messages/' => 'messages#create', via: :post
   match '/rsas/:id/encrypt_messages/:message_id' => 'messages#show', via: :get
   match '/rsas/:id/decrypt_messages/' => 'messages#decrypt_messages', via: :post
   # POST /rsas - създава нов ключ и връща id на този ключ
@@ -22,8 +22,8 @@ Rails.application.routes.draw do
   # For detail s on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
 
-# curl -H "Content-Type: application/json" -X POST -d '{"message":"the value of the message"}' http://localhost:3000/rsas/11/encrypt_messages/
+# curl -H "Content-Type: application/json" -X POST -d '{"message":"the value of the message"}' http://localhost:3000/rsas/1/encrypt_messages/
 
-# curl -H "Content-Type: application/json" -X POST -d '{"message":"10022.5490.9987.9068.379.3434.3821.10793.9987.9068.9757.5924.9068.10022.5490.9987.9068.5473.9987.4073.4073.3434.9323.9987"}' http://localhost:3000/rsas/11/decrypt_messages/
+# curl -H "Content-Type: application/json" -X POST -d '{"message":"145.11095.12924.6971.6093.7896.11486.2524.12924.6971.1283.5433.6971.145.11095.12924.6971.187.12924.7133.7133.7896.12058.12924"}' http://localhost:3000/rsas/1/decrypt_messages/
 
-# curl -H "Content-Type: application/json" -X GET http://localhost:3000/rsas/11/encrypt_messages/3
+# curl -H "Content-Type: application/json" -X GET http://localhost:3000/rsas/1/encrypt_messages/1

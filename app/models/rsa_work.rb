@@ -1,2 +1,0 @@
-class RsaWork < ApplicationRecord
-end
