@@ -29,15 +29,14 @@ class RsaFullsController < ApplicationController
   # POST /rsa_fulls.json
   def create
 
+    # keys = [params[:n], params[:e], params[:d]]
     keys = [:n, :e, :d]
-    p keys
     if (params.keys & keys).any?
       my_rsa = RsaFull.new(n: params[:n], e: params[:e], d: params[:d])
     else
       keys = RsaFull.new_key
       my_rsa = RsaFull.new(n: keys[0], e: keys[1], d: keys[2])
     end
-    p keys
     respond_to do |format|
        if my_rsa.save
          format.json {render json: {'id' => my_rsa.id}}###

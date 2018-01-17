@@ -39,7 +39,7 @@ class MessagesController < ApplicationController
    my_message = Message.new(content: my_rsa.decrypt(params[:message]))
    respond_to do |format|
       if my_message.save
-        format.json {render json: {'id' => my_message.id, 'content' => my_message.content}}
+        format.json {render json: {'id' => my_message.id, 'message' => my_message.content}}
       end
     end
   end

@@ -22,8 +22,13 @@ Rails.application.routes.draw do
   # For detail s on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
 
-# curl -H "Content-Type: application/json" -X POST -d '{"message":"the value of the message"}' http://localhost:3000/rsas/1/encrypt_messages/
+# curl -H "Content-Type: application/json" -X POST -d '{"n": 19, "e": 14, "d": 48}' https://rsa-tp-hw.herokuapp.com/rsas
 
-# curl -H "Content-Type: application/json" -X POST -d '{"message":"145.11095.12924.6971.6093.7896.11486.2524.12924.6971.1283.5433.6971.145.11095.12924.6971.187.12924.7133.7133.7896.12058.12924"}' http://localhost:3000/rsas/1/decrypt_messages/
+# curl -H "Content-Type: application/json" -X GET https://rsa-tp-hw.herokuapp.com/rsas/1
 
-# curl -H "Content-Type: application/json" -X GET http://localhost:3000/rsas/1/encrypt_messages/1
+# curl -H "Content-Type: application/json" -X POST -d '{"message":"Supernatural school"}' https://rsa-tp-hw.herokuapp.com/rsas/1/encrypt_messages/
+
+# curl -H "Content-Type: application/json" -X POST -d '{"message":"155.1881.926.936.2359.1368.362.1075.1881.2359.362.379.1552.761.263.2726.999.999.379"}' https://rsa-tp-hw.herokuapp.com/rsas/1/decrypt_messages/
+
+# curl -H "Content-Type: application/json" -X GET https://rsa-tp-hw.herokuapp.com/rsas/1/encrypt_messages/1
+
