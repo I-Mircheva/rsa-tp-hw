@@ -1,46 +1,51 @@
+
 class MessagesController < ApplicationController
-  before_action :set_message, only: [:show, :edit, :update, :destroy]
 
   # GET /messages
   # GET /messages.json
   def index
     @messages = Message.all
   end
+
   # GET /messages/1
   # GET /messages/1.json
   def show
-    p params[:message_id]
-    my_message = Message.find_by id: params[:message_id]
+    message = Message.find_by id: params[:message_id]
+
     respond_to do |format|
-         format.json {render json: {'message' => my_message.content}}
-     end
+      format.json { render json: { 'message' => message.content } }
+    end
   end
+
   # GET /messages/new
   def new
     @message = Message.new
   end
+
   # GET /messages/1/edit
   def edit
   end
+
   # POST /messages
   # POST /messages.json
   def create
-   my_rsa = RsaFull.find_by id: params[:id]
-   my_message = Message.new(content: my_rsa.encrypt(params[:message]))
-   respond_to do |format|
-      if my_message.save
-        format.json {render json: {'id' => my_message.id}}
-      end
+    key = RsaFull.find_by id: params[:id]
+    encrypted_message = key.encrypt(params[:message])
+    message = Message.new(content: encrypted_message)
+
+    message.save! # Will throw an error if invalid ( unlikely event) !
+    respond_to do |format|
+      format.json { render json: { 'id' => message.id } }
     end
   end
 
-  def decrypt_messages
-   my_rsa = RsaFull.find_by id: params[:id]
-   my_message = Message.new(content: my_rsa.decrypt(params[:message]))
-   respond_to do |format|
-      if my_message.save
-        format.json {render json: {'id' => my_message.id, 'message' => my_message.content}}
-      end
+  def decrypt
+    key = RsaFull.find_by id: params[:id]
+    message = Message.new(content: key.decrypt(params[:message]))
+
+    message.save! # Will throw an error if invalid ( unlikely event) !
+    respond_to do |format|
+      format.json {render json: {'id' => message.id, 'message' => message.content}}
     end
   end
 
@@ -69,12 +74,6 @@ class MessagesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_message
-      #@message = Message.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
       params.require(:message).permit(:content)
     end

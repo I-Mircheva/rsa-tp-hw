@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   match '/rsas/:id' => 'rsa_fulls#show', via: :get
   match '/rsas/:id/encrypt_messages/' => 'messages#create', via: :post
   match '/rsas/:id/encrypt_messages/:message_id' => 'messages#show', via: :get
-  match '/rsas/:id/decrypt_messages/' => 'messages#decrypt_messages', via: :post
+  match '/rsas/:id/decrypt_messages/' => 'messages#decrypt', via: :post
   # POST /rsas - създава нов ключ и връща id на този ключ
   # POST /rsas - създава нов ключ с конкретните стойности за n, e, d. Връзка id-то
   #     params: n, e, d

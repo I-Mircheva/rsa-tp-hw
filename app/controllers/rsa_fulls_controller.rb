@@ -29,9 +29,9 @@ class RsaFullsController < ApplicationController
   # POST /rsa_fulls.json
   def create
 
-    # keys = [params[:n], params[:e], params[:d]]
-    keys = [:n, :e, :d]
-    if (params.keys & keys).any?
+    keys = [params[:n], params[:e], params[:d]]
+    # keys = [:n, :e, :d]
+    if (params.keys && keys).any?
       my_rsa = RsaFull.new(n: params[:n], e: params[:e], d: params[:d])
     else
       keys = RsaFull.new_key
